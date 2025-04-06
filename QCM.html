@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM interactif - XSL-FO, CSS, SVG</title>
+    <style>
+        /* Style global pour la page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        #content {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Style pour l'image et l'interface */
+        #image-container {
+            width: 100%;
+            height: 300px;
+            border: 2px solid #ccc;
+            background-color: white;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        svg {
+            width: 80%;
+            height: 80%;
+            display: none; /* Masquer le SVG au départ */
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .answers {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        button {
+            padding: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #pdf-btn {
+            margin-top: 30px;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        #pdf-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Style pour chaque question */
+        .question h3 {
+            font-size: 1.25rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1>QCM Interactif - XSL-FO, CSS et SVG</h1>
+        <!-- Conteneur pour l'image SVG -->
+        <div id="image-container">
+            <svg id="image" xmlns="http://www.w3.org/2000/svg" width="400" height="400">
+                <!-- Un cercle centré en haut dans le SVG, de couleur verte -->
+                <circle id="shape" cx="195" cy="60" r="50" fill="blue"></circle>
+            </svg>
+        </div>
+
+        <!-- Première question modifiée -->
+        <div class="question" id="question1">
+            <h3>1. Comment afficher un cercle de couleur verte et taille définie en SVG ?</h3>
+            <div class="answers">
+                <button onclick="repondreQuestion('question1', 'correct1')">circle cx="195" cy="60" r="50" fill="green"</button>
+                <button onclick="repondreQuestion('question1', 'incorrect')">rect x="50" y="50" width="300" height="300" fill="green"</button>
+                <button onclick="repondreQuestion('question1', 'incorrect')">circle cx="150" cy="150" fill="blue"</button>
+            </div>
+        </div>
+
+        <!-- Deuxième question -->
+        <div class="question" id="question2" style="display: none;">
+            <h3>2. Comment ajouter un rectangle de couleur marron dans un SVG ?</h3>
+            <div class="answers">
+                <button onclick="repondreQuestion('question2', 'correct2')">rect x="120" y="150" width="140" height="70" fill="brown"</button>
+                <button onclick="repondreQuestion('question2', 'incorrect')">rect x="50" y="50" width="200" fill="lightblue"</button>
+                <button onclick="repondreQuestion('question2', 'incorrect')">circle cx="150" cy="150" r="100" fill="blue"</button>
+            </div>
+        </div>
+
+        <!-- Troisième question -->
+        <div class="question" id="question3" style="display: none;">
+            <h3>3. Comment faire une rotation sur un rectangle pour qu'il devienne vertical ?</h3>
+            <div class="answers">
+                <button onclick="repondreQuestion('question3', 'correct3')">transform="rotate(90 195 185)"</button>
+                <button onclick="repondreQuestion('question3', 'incorrect')">transform="rotate(45 150 100)"</button>
+                <button onclick="repondreQuestion('question3', 'incorrect')">transform="rotate(180 150 100)"</button>
+            </div>
+        </div>
+
+        <!-- Quatrième question -->
+        <div class="question" id="question4" style="display: none;">
+             <h3>4. Comment translater un groupe de formes SVG (cercle + rectangle) vers la gauche ?</h3>
+        <div class="answers">
+          <button onclick="repondreQuestion('question4', 'correct4')">g transform="translate(-100, 0)"</button>
+          <button onclick="repondreQuestion('question4', 'incorrect')">transform="scale(2)"</button>
+          <button onclick="repondreQuestion('question4', 'incorrect')">transform="rotate(45, 50, 50)"</button>
+        </div>
+        </div>
+        
+        <!-- Cinquième question -->
+<div class="question" id="question5" style="display: none;">
+    <h3>5. Comment ajouter un carré  dans un SVG ?</h3>
+    <div class="answers">
+        <button onclick="repondreQuestion('question5', 'correct5')">rect x="280" y="90" width="200" height="150" fill="orange"</button>
+        <button onclick="repondreQuestion('question5', 'incorrect')">circle cx="300" cy="200" r="80" fill="orange"</button>
+        <button onclick="repondreQuestion('question5', 'incorrect')">rect x="10" width="100" height="100" fill="blue"</button>
+    </div>
+</div>
+
+        <!-- Sixième question -->
+        <div class="question" id="question6" style="display: none;">
+            <h3>6. Comment ajouter un triangle en SVG ?</h3>
+            <div class="answers">
+                <button onclick="repondreQuestion('question6', 'correct6')">polygon points="280,90 480,90 380,20" fill="brown"</button>
+                <button onclick="repondreQuestion('question6', 'incorrect')">rect x="280" y="130" width="200" height="200" fill="green"</button>
+                <button onclick="repondreQuestion('question6', 'incorrect')">circle cx="380" cy="60" r="50" fill="brown"</button>
+            </div>
+        </div>
+
+        <!-- citieme question -->
+<div class="question" id="question7" style="display: none;">
+    <h3>7. Comment ajouter un rectangle verticale en SVG ?</h3>
+    <div class="answers">
+        <button onclick="repondreQuestion('question7', 'correct7')">rect x="345" y="140" width="70" height="100" fill="blue"</button>
+        <button onclick="repondreQuestion('question7', 'incorrect')">polygon points="280,130 480,130 380,60" fill="brown"</button>
+        <button onclick="repondreQuestion('question7', 'incorrect')">circle cx="380" cy="60" r="50" fill="brown"</button>
+    </div>
+</div>
+
+
+        <!-- Bouton pour télécharger le PDF -->
+        <button id="pdf-btn" onclick="generatePDF()" style="display: none;">Télécharger XSL-FO</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        let currentQuestion = 1;
+
+        // Fonction pour gérer les réponses
+        function repondreQuestion(questionId, response) {
+            if (response.startsWith('correct')) {
+                document.getElementById(questionId).style.display = 'none';
+                currentQuestion++;
+                if (currentQuestion <= 7) {
+                    document.getElementById('question' + currentQuestion).style.display = 'block';
+                } else {
+                    document.getElementById('pdf-btn').style.display = 'block';
+                }
+                appliquerModifications(questionId);
+            } else {
+                alert('Réponse incorrecte, essayez à nouveau.');
+            }
+        }
+
+        // Fonction pour appliquer les modifications à l'image SVG
+        function appliquerModifications(questionId) {
+            const shape = document.getElementById("shape");
+            if (questionId === 'question1') {
+                // Réponse correcte pour la première question : cercle de couleur
+                shape.setAttribute("fill", "green");
+                shape.setAttribute("width", "100");
+                shape.setAttribute("height", "100");
+                document.getElementById("image").style.display = "block"; // Afficher l'image
+            } else if (questionId === 'question2') {
+                // Réponse correcte pour la deuxième question : ajout du rectangle marron sous le cercle
+                const svg = document.getElementById("image");
+                const rectangle = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                rectangle.setAttribute("x", "120");  // Centrer le rectangle sous le cercle
+                rectangle.setAttribute("y", "150");  // Placer le rectangle en dessous du cercle
+                rectangle.setAttribute("width", "140");
+                rectangle.setAttribute("height", "70");
+                rectangle.setAttribute("fill", "brown");
+                svg.appendChild(rectangle);
+            } else if (questionId === 'question3') {
+                // Réponse correcte pour la troisième question : rotation du rectangle
+                const rectangle = document.querySelector('rect');
+                rectangle.setAttribute("transform", "rotate(90 195 185)"); // Rotation du rectangle
+            }else if (questionId === 'question4') {
+             const svg = document.getElementById("image");
+    // Créer un groupe (g) pour contenir les formes
+    const circle = document.getElementById("shape");
+    const rect = document.querySelector('rect');
+
+    // Créer un groupe s’il n'existe pas déjà
+    if (!document.getElementById("grouped")) {
+        const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        g.setAttribute("id", "grouped");
+        g.appendChild(circle);
+        g.appendChild(rect);
+        svg.appendChild(g);
+    }
+
+    const group = document.getElementById("grouped");
+    group.setAttribute("transform", "translate(-100, 0)");
+} else if (questionId === 'question5') {
+    const svg = document.getElementById("image");
+    const carre = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    carre.setAttribute("x", "280");
+    carre.setAttribute("y", "90");
+    carre.setAttribute("width", "200");
+    carre.setAttribute("height", "150");
+    carre.setAttribute("fill", "orange");
+    svg.appendChild(carre);
+} else if (questionId === 'question6') {
+    const svg = document.getElementById("image");
+
+    // Ajout du toit (triangle) au-dessus du carré
+    const toit = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+    
+    // Modification de la position et taille du triangle pour qu'il soit plus grand et bien placé
+    toit.setAttribute("points", "280,90 480,90 380,20");  // Centrer le triangle au-dessus du carré
+    toit.setAttribute("fill", "brown");
+    
+    svg.appendChild(toit);
+}else if (questionId === 'question7') {
+    const svg = document.getElementById("image");
+
+    // Ajouter un toit rectangulaire au-dessus du carré orange
+    const toitRectangle = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    toitRectangle.setAttribute("x", "345");  // Centrer horizontalement (milieu du carré)
+    toitRectangle.setAttribute("y", "140");   // Positionner au-dessus du carré
+    toitRectangle.setAttribute("width", "70"); // Largeur du toit
+    toitRectangle.setAttribute("height", "100"); // Hauteur du toit (vertical)
+    toitRectangle.setAttribute("fill", "blue");
+    svg.appendChild(toitRectangle);
+
+    // Pour s'assurer que le toit est bien visible, ajustez son ordre d'affichage
+    // et vérifiez que l'image est bien rendue
+    document.getElementById("image").style.display = "block";
+}
+
+
+        }
+
+        // Fonction pour générer un PDF de l'image
+        function generatePDF() {
+            const svg = document.getElementById("image");
+  if (!svg) return;
+
+  let xslFo = `<?xml version="1.0" encoding="UTF-8"?>
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+  <fo:layout-master-set>
+    <fo:simple-page-master master-name="A4"
+      page-height="29.7cm" page-width="21cm" margin="2cm">
+      <fo:region-body/>
+    </fo:simple-page-master>
+  </fo:layout-master-set>
+  <fo:page-sequence master-reference="A4">
+    <fo:flow flow-name="xsl-region-body">
+      <fo:block>
+        <fo:instream-foreign-object>
+          <svg xmlns="http://www.w3.org/2000/svg" width="800" height="600">
+`;
+
+  for (let el of svg.children) {
+    xslFo += el.outerHTML + "\n";
+  }
+
+  xslFo += `
+          </svg>
+        </fo:instream-foreign-object>
+      </fo:block>
+    </fo:flow>
+  </fo:page-sequence>
+</fo:root>
+`;
+
+  const blob = new Blob([xslFo], { type: "application/xml" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "correction-image.fo";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
