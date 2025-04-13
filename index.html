@@ -25,7 +25,7 @@
         }
 
         #content {
-            background-color: white;
+            background-color: rgb(255, 255, 255);
             border-radius: 10px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
             padding: 30px;
@@ -44,12 +44,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-        }
+            position: relative;
 
+        }
         svg {
             width: 80%;
             height: 80%;
             display: none; /* Masquer le SVG au départ */
+            object-fit: contain; /* Garantit que l'intégralité du SVG est visible sans déformation */
         }
 
         .question {
@@ -112,7 +114,7 @@
 
         <!-- Première question modifiée -->
         <div class="question" id="question1">
-            <h3>1. Comment afficher un cercle de couleur verte et taille définie en SVG ?</h3>
+            <h3>1. Comment afficher un cercle de taille définie en SVG ?</h3>
             <div class="answers">
                 <button onclick="repondreQuestion('question1', 'correct1')">circle cx="195" cy="60" r="50" fill="green"</button>
                 <button onclick="repondreQuestion('question1', 'incorrect')">rect x="50" y="50" width="300" height="300" fill="green"</button>
@@ -122,7 +124,7 @@
 
         <!-- Deuxième question -->
         <div class="question" id="question2" style="display: none;">
-            <h3>2. Comment ajouter un rectangle de couleur marron dans un SVG ?</h3>
+            <h3>2. Comment ajouter un rectangle de taille définie en SVG ?</h3>
             <div class="answers">
                 <button onclick="repondreQuestion('question2', 'correct2')">rect x="120" y="150" width="140" height="70" fill="brown"</button>
                 <button onclick="repondreQuestion('question2', 'incorrect')">rect x="50" y="50" width="200" fill="lightblue"</button>
@@ -132,7 +134,7 @@
 
         <!-- Troisième question -->
         <div class="question" id="question3" style="display: none;">
-            <h3>3. Comment faire une rotation sur un rectangle pour qu'il devienne vertical ?</h3>
+            <h3>3. Comment appliquer une rotation à un rectangle en SVG pour qu'il devienne vertical ?</h3>
             <div class="answers">
                 <button onclick="repondreQuestion('question3', 'correct3')">transform="rotate(90 195 185)"</button>
                 <button onclick="repondreQuestion('question3', 'incorrect')">transform="rotate(45 150 100)"</button>
@@ -152,19 +154,19 @@
         
         <!-- Cinquième question -->
 <div class="question" id="question5" style="display: none;">
-    <h3>5. Comment ajouter un carré  dans un SVG ?</h3>
+    <h3>5. Comment ajouter un carré de taille définie en SVG ?</h3>
     <div class="answers">
-        <button onclick="repondreQuestion('question5', 'correct5')">rect x="280" y="90" width="200" height="150" fill="orange"</button>
+        <button onclick="repondreQuestion('question5', 'correct5')">rect x="280" y="40" width="200" height="200" fill="orange"</button>
         <button onclick="repondreQuestion('question5', 'incorrect')">circle cx="300" cy="200" r="80" fill="orange"</button>
-        <button onclick="repondreQuestion('question5', 'incorrect')">rect x="10" width="100" height="100" fill="blue"</button>
+        <button onclick="repondreQuestion('question5', 'incorrect')">rect x="10" width="100" height="200" fill="blue"</button>
     </div>
 </div>
 
         <!-- Sixième question -->
         <div class="question" id="question6" style="display: none;">
-            <h3>6. Comment ajouter un triangle en SVG ?</h3>
+            <h3>6. Comment ajouter un triangle de taille définie en SVG ?</h3>
             <div class="answers">
-                <button onclick="repondreQuestion('question6', 'correct6')">polygon points="280,90 480,90 380,20" fill="brown"</button>
+                <button onclick="repondreQuestion('question6', 'correct6')">polygon points="280,40 480,40 380,0" fill="brown"</button>
                 <button onclick="repondreQuestion('question6', 'incorrect')">rect x="280" y="130" width="200" height="200" fill="green"</button>
                 <button onclick="repondreQuestion('question6', 'incorrect')">circle cx="380" cy="60" r="50" fill="brown"</button>
             </div>
@@ -172,7 +174,7 @@
 
         <!-- citieme question -->
 <div class="question" id="question7" style="display: none;">
-    <h3>7. Comment ajouter un rectangle verticale en SVG ?</h3>
+    <h3>7. Comment ajouter un rectangle verticale de taille définie en SVG ?</h3>
     <div class="answers">
         <button onclick="repondreQuestion('question7', 'correct7')">rect x="345" y="140" width="70" height="100" fill="blue"</button>
         <button onclick="repondreQuestion('question7', 'incorrect')">polygon points="280,130 480,130 380,60" fill="brown"</button>
@@ -181,14 +183,13 @@
 </div>
 
 
-        <!-- Bouton pour télécharger le PDF -->
-        <button id="pdf-btn" onclick="generatePDF()" style="display: none;">Télécharger XSL-FO</button>
+        <!-- Bouton pour télécharger le fichier XSL-FO -->
+        <button id="pdf-btn" onclick="generateXSLFO()" style="display: none;">Télécharger le fichier XSL-FO</button>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         let currentQuestion = 1;
-
         // Fonction pour gérer les réponses
         function repondreQuestion(questionId, response) {
             if (response.startsWith('correct')) {
@@ -209,7 +210,7 @@
         function appliquerModifications(questionId) {
             const shape = document.getElementById("shape");
             if (questionId === 'question1') {
-                // Réponse correcte pour la première question : cercle de couleur
+                // Réponse correcte pour la première question : cercle 
                 shape.setAttribute("fill", "green");
                 shape.setAttribute("width", "100");
                 shape.setAttribute("height", "100");
@@ -249,9 +250,9 @@
     const svg = document.getElementById("image");
     const carre = document.createElementNS("http://www.w3.org/2000/svg", "rect");
     carre.setAttribute("x", "280");
-    carre.setAttribute("y", "90");
+    carre.setAttribute("y", "50");
     carre.setAttribute("width", "200");
-    carre.setAttribute("height", "150");
+    carre.setAttribute("height", "200");
     carre.setAttribute("fill", "orange");
     svg.appendChild(carre);
 } else if (questionId === 'question6') {
@@ -261,7 +262,7 @@
     const toit = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
     
     // Modification de la position et taille du triangle pour qu'il soit plus grand et bien placé
-    toit.setAttribute("points", "280,90 480,90 380,20");  // Centrer le triangle au-dessus du carré
+    toit.setAttribute("points", "280,50 480,50 380,0");  // Centrer le triangle au-dessus du carré
     toit.setAttribute("fill", "brown");
     
     svg.appendChild(toit);
@@ -273,7 +274,7 @@
     toitRectangle.setAttribute("x", "345");  // Centrer horizontalement (milieu du carré)
     toitRectangle.setAttribute("y", "140");   // Positionner au-dessus du carré
     toitRectangle.setAttribute("width", "70"); // Largeur du toit
-    toitRectangle.setAttribute("height", "100"); // Hauteur du toit (vertical)
+    toitRectangle.setAttribute("height", "110"); // Hauteur du toit (vertical)
     toitRectangle.setAttribute("fill", "blue");
     svg.appendChild(toitRectangle);
 
@@ -282,11 +283,10 @@
     document.getElementById("image").style.display = "block";
 }
 
-
         }
 
-        // Fonction pour générer un PDF de l'image
-        function generatePDF() {
+        // Fonction pour générer le fichier XSL-FO de l'image
+        function generateXSLFO() {
             const svg = document.getElementById("image");
   if (!svg) return;
 
@@ -322,7 +322,7 @@
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "correction-image.fo";
+  a.download = "image.fo";
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
